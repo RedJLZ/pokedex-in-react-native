@@ -41,7 +41,7 @@ export const PokemonScreen = ({navigation, route}: Props) => {
             top: top + 30,
           }}
         >
-          {name + '\n'}#{id}
+          {`#${id}-${name.toLocaleUpperCase()}`}
         </Text>
         {/**Pokebola blanca  */}
         <Image source={require('../assets/pokebola-blanca.png')} style={styles.pokeball} />
