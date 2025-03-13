@@ -4,7 +4,7 @@ import {Tabs} from './src/navegations/Tabs';
 export default function App() {
   return (
     <NavigationContainer>
-      <Tabs/>
+      <Tabs />
     </NavigationContainer>
   )
 }

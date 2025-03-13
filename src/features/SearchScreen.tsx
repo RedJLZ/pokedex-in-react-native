@@ -11,72 +11,67 @@ import {styles} from '../styles/appTheme';
 const screenWidth = Dimensions.get('window').width;
 
 export const SearchScreen = () => {
+  const {top} = useSafeAreaInsets();
+  const {isFetching, simplePokemonList} = usePokemonSearch();
 
-  const {top}=useSafeAreaInsets();
-  const {isFetching,simplePokemonList}= usePokemonSearch();
-
-  const [pokemonFiltered, setPokemonFiltered] = useState<SimplePokemon[]>([])
-  const [term, setTerm] = useState('')
+  const [pokemonFiltered, setPokemonFiltered] = useState<SimplePokemon[]>([]);
+  const [term, setTerm] = useState('');
 
   useEffect(() => {
-    if(term.length === 0){
+    if (term.length === 0) {
       return setPokemonFiltered([]);
     }
-    if (isNaN(Number(term))){
+    if (isNaN(Number(term))) {
       setPokemonFiltered(
-        simplePokemonList.filter(
-          (poke) => poke.name.toLocaleLowerCase().includes(term.toLocaleLowerCase()))
+        simplePokemonList.filter((poke) =>
+          poke.name.toLocaleLowerCase().includes(term.toLocaleLowerCase())
+        )
       );
-    }else{
-      const pokemonById = simplePokemonList.find((poke)=> poke.id === term)
-      setPokemonFiltered(
-        (pokemonById)? [pokemonById] : []
-      );
+    } else {
+      const pokemonById = simplePokemonList.find((poke) => poke.id === term);
+      setPokemonFiltered(pokemonById ? [pokemonById] : []);
     }
+  }, [term]);
 
-
-  }, [term])
-
-
-
-  if(isFetching){
-    return(
-      <Loading/>
-    )
+  if (isFetching) {
+    return <Loading />;
   }
   return (
     <View
       style={{
-        flex:1,
-        marginHorizontal: 20
+        flex: 1,
+        marginHorizontal: 20,
       }}
     >
       <SearchInput
-        onDebounce={(value)=>setTerm(value)}
+        onDebounce={(value) => setTerm(value)}
         style={{
-          position:'absolute',
-          zIndex:999,
-          width:screenWidth - 40,
-          top: (Platform.OS === 'ios')?top:top+30
+          position: 'absolute',
+          zIndex: 999,
+          width: screenWidth - 40,
+          top: Platform.OS === 'ios' ? top : top + 30,
         }}
       />
       <FlatList
-            data={pokemonFiltered}
-            keyExtractor={(pokemon)=>pokemon.id}
-            showsVerticalScrollIndicator={false}
-            numColumns={2}
-            // Header
-            ListHeaderComponent={(
-              <Text style={{
-                ...styles.globalMagin,
-                ...styles.title,
-                paddingBottom: 10,
-                marginTop:(Platform.OS === 'ios')?top+60:top+80
-              }}>{term}</Text>
-            )}
-
-            renderItem={({item})=>(<PokemonCard pokemon={item}/> )}
-        />
+        data={pokemonFiltered}
+        keyExtractor={(pokemon) => pokemon.id}
+        showsVerticalScrollIndicator={false}
+        numColumns={2}
+        // Header
+        ListHeaderComponent={
+          <Text
+            style={{
+              ...styles.globalMagin,
+              ...styles.title,
+              paddingBottom: 10,
+              marginTop: Platform.OS === 'ios' ? top + 60 : top + 80,
+            }}
+          >
+            {term}
+          </Text>
+        }
+        renderItem={({item}) => <PokemonCard pokemon={item} />}
+      />
     </View>
-  )
-}
+  );
+};
