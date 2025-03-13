@@ -51,7 +51,7 @@ export const PokemonCard = ({pokemon}: Props) => {
       >
         <View>
           <Text style={styles.name}>
-            {pokemon.name}
+            {pokemon.name.toLocaleUpperCase()}
             {'\n#' + pokemon.id}
           </Text>
         </View>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     //backgroundColor:'grey',
     marginHorizontal: 10,
-    height: 120,
+    height: 140,
     width: 160,
     marginBottom: 25,
     borderRadius: 10,
@@ -85,9 +85,9 @@ const styles = StyleSheet.create({
   },
   name: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: '800',
-    top: 20,
+    top: 15,
     left: 10,
   },
   pokebola: {
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     position: 'absolute',
+    top:15,
     right: -7,
     bottom: -5,
   },
