@@ -16,7 +16,7 @@ export const PokemonDetails = ({pokemon}: Props) => {
     >
       {/** Types y peso */}
       <View style={{...styles.container, marginTop: 370}}>
-        <Text style={{...styles.title}}>Types</Text>
+        <Text style={{...styles.title}}>Tipos</Text>
         <View style={{flexDirection: 'row'}}>
           {pokemon.types.map(({type}) => (
             <Text style={{...styles.regularText}} key={type.name}>
@@ -74,7 +74,7 @@ export const PokemonDetails = ({pokemon}: Props) => {
           ))}
         </View>
         {/** Sprite final */}
-        <View style={{marginBottom: 20, alignItems: 'center'}}>
+        <View style={{marginBottom: 85, alignItems: 'center'}}>
           <FadeInImage uri={pokemon.sprites.front_default} style={{...styles.basicSprinte}} />
         </View>
       </View>
